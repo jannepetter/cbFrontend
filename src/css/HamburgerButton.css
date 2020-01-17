@@ -1,0 +1,20 @@
+.toggle-button {                    /* hamburger buttoni */
+    display: flex;
+    flex-direction: column;         /* asettelee sisällön vertikaalisesti */
+    justify-content: space-around; /* sisältö asetellaan tasaisin välein (ilman tätä kaikki on klöntissä) */
+    height: 27px;
+    width: 42px;                /* toggle-button-linen parentti */
+    background: transparent;    /* tämä läpinäkyväksi koska haluat että vain pihvit ovat näkyvissä */
+    border:none;
+    cursor: pointer;        /* kun hiirellä liikkuu kohdalle tulee sormi kursorin kohdalle */
+    margin: 0.3rem;
+}
+
+.toggle-button:focus {
+    outline: none;
+}
+.toggle-button-line {   /* hamburger buttonin 'pihvit' */
+    width: 30px;    /* pitää mätsätä parentin kanssa (100% ei toimi tässätapauksessa) */
+    height: 3px;
+    background: rgba(9, 2, 39, 0.747);
+}

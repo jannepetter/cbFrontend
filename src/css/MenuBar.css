@@ -1,0 +1,75 @@
+.menubar {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    background: darkgreen;
+    height: 50px;
+    z-index: 300;               /* backdropilla 100, sidedrawer 200, jolloin menu jää niiden ylle */
+
+}
+
+.menubar_logo {
+    margin-left: 1rem;
+    color: white;
+    text-decoration: none;
+}
+.menubar_navigation {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 0.1rem;            /* eka arvo top-bottom, toka arvo left-right */
+}
+.menubar_navigation_items a{
+    color: whitesmoke;
+    text-decoration: none;
+
+}
+.menuLinkItem {
+    color: whitesmoke;
+    text-decoration: none;
+}
+.menuSecondaryLinkItem {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.menubar_navigation_items a:hover,
+.menubar_navigation_items a:active {
+    color: tomato; 
+}
+
+.menubar_navigation_items ul {
+list-style: none;
+margin: 0;
+padding: 0;
+display: flex;
+}
+
+.menubar_navigation_items li {
+    padding: 0 0.2rem;
+}
+.spacer {
+flex:1;
+}
+.searchinput{
+    width: 300px;
+}
+.timer{
+    padding-right: 0.4rem;
+}
+
+@media (max-width:850px) {
+    .searchinput{
+        width: 100px;
+    }
+    .menubar{
+        font-size: x-small;
+    }
+    
+    .menuSecondaryLinkItem {
+        display: none;
+    }
+   
+
+  }

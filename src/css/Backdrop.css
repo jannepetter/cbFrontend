@@ -1,0 +1,14 @@
+.backdrop{
+    position: fixed;
+    margin-top: 45px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;                   /* default = 0, mitä isompi nii elementti tulee sitä ylemmäs pinossa */
+    transform: translateX(-100%);
+
+
+}
+.backdrop.open{
+    transform: translateX(0);
+}
