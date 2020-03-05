@@ -35,23 +35,18 @@ const Recipe: React.FC<Props> = (props) => {
     //tähän vielä pitää jossainvälissä laittaa että tarkistaa clientin ennenkö lähtee tekee db kyselyä
     //sen jälkee ehkä vois olla viisainta kun oot tehny algoritmin millä hakee alotus respat
     
-    if (findRecipe.loading ||findRecipe.data===undefined) {
+    if (findRecipe.loading ||findRecipe.error) {
         return (
             <div></div>
         )
     }
-    console.log(findRecipe,'tsektsek')
-   /*  return (
-        <div></div>
-    ) */
-
     const faker = {
         title: 'notfound',
         imageUrl: '',
         ingredients: ['notfound']
     }
     const recipe = findRecipe.data.findRecipe || faker 
-  
+
     //korjaa ingredientin listauksen key arvo. Nyt tulee aineksen nimestä ja indexista listalla
     //ei onnistu suoraan key={i.id} ehkä talletin kantaan ingredientsit stringina enkä array
     return (

@@ -6,8 +6,8 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     toggleSideDrawer
 }
 
-const Backdrop:React.FC<Props> = (props) => {
-    let cname = props.sideDrawerOpen ? 'backdrop open' : 'backdrop'
-return (<div onClick={props.toggleSideDrawer} className={cname}></div>) 
+const Backdrop:React.FC<Props> = ({sideDrawerOpen,toggleSideDrawer}) => {
+    let cname = sideDrawerOpen ? 'backdrop open' : 'backdrop'
+return (<div onClick={toggleSideDrawer} className={cname}></div>) 
 }
 export default Backdrop

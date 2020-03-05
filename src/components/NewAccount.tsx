@@ -19,7 +19,7 @@ const NewAcc:React.FC<Props> = (Props) => {
         console.log(user.data,'uuseri')
 
     } catch (error) {
-        console.log(error,'Newacc createuser errrorrrr')
+        console.log(error,'Newacc createuser errorr')
     }
     }
 return (

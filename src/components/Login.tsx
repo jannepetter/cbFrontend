@@ -33,9 +33,7 @@ const Login: React.FC<Props> = (props) => {
         }
 
     }
-   /*  if(props.login.error){
-    return(<div>{props.login.error.graphQLErrors[0].message}</div>)
-    } */
+  
     return (
         <div>
             <h2>Log in</h2>

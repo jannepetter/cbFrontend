@@ -60,6 +60,7 @@ const MenuBar: React.FC<Props> = (props) => {
                     <ul>
                         <li><input className='searchinput'></input><button>s</button></li>
                         <li className='menuSecondaryLinkItem' style={loggedin}><Link className='menuLinkItem' to="/myRecipes" /* onClick={()=>props.me.refetch() } */>myRecipes </Link></li>
+                        <li className='menuSecondaryLinkItem' style={loggedin}><Link className='menuLinkItem' to="/NewRecipe">NewRecipe </Link></li>
                         <li className='menuSecondaryLinkItem' style={loggedin}><Link className='menuLinkItem' to="/createRecipe">createRecipe </Link></li>
                         <li style={loggedout}><Link className='menuLinkItem' to="/log">log</Link></li>
                         <li style={loggedin}><Link className='menuLinkItem' to="/myRecipes">{props.me.data.me?props.me.data.me.username:''}</Link>  <button onClick={handleLogout}>logout</button></li>

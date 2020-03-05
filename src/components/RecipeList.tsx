@@ -20,12 +20,8 @@ interface Props{
 }
 
 const RecipeList: React.FC<Props> = (props) => { 
-if(props.recipes.data===undefined){
-return(
-    <div>loiinen</div>
-)
-}
-const allRecipes=props.recipes.data.allRecipes
+
+const allRecipes=props.recipes.data?props.recipes.data.allRecipes:[]
 
 
 
