@@ -85,6 +85,7 @@ const SetIngredients: React.FC<Props> = props => {
   };
   return (
     <div>
+      <h2>Add ingredients</h2>
       <p className="errmessage">{errmessage}</p>
       <input
         id="inginput"

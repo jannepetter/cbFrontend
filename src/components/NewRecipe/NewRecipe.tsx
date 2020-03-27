@@ -12,6 +12,8 @@ interface Props {
 
 const NewRecipe: React.FC<Props> = props => {
   const [phase, setPhase] = useState(0);
+  const createRecipe = props.createRecipe
+  const me = props.me
   const stepUp = () => {
     if (phase < 3) {
       setPhase(phase + 1);
@@ -29,8 +31,9 @@ const NewRecipe: React.FC<Props> = props => {
       <button onClick={stepUp}>next</button>
       <SetRecipeName show={phase === 0}></SetRecipeName>
       <SetIngredients show={phase === 1}></SetIngredients>
-      <SetImage show={phase === 2}></SetImage>
-      <SetInstructions show={phase === 3}></SetInstructions>
+      <SetInstructions show={phase === 2}></SetInstructions>
+      <SetImage show={phase === 3} me={me} createRecipe={createRecipe}></SetImage>
+
     </div>
   );
 };

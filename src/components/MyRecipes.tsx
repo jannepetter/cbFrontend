@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { ME } from '../graphql/queries/me';
 import { MY_RECIPES } from '../graphql/queries/MY_RECIPES';
@@ -57,32 +56,29 @@ const MyRecipes: React.FC<Props> = props => {
       <div className="recipelist">
         {recipes &&
           recipes.map(r => (
-            <Card key={r.id} className="recipeCard">
-              <Card.Img
+            <div key={r.id} className="recipeCard">
+              <img
                 className="cardImgContent"
                 src={
                   r.imageUrl !== ''
                     ? `${process.env.REACT_APP_CLOUDFETCHURL}/${r.imageUrl}`
                     : `/images/emptyplate.jpg`
                 }
-                alt="no image added"
-              ></Card.Img>
-              <Card.Body className="cardContent">
-                <Card.Title>
-                  <strong>{r.title}</strong>
-                </Card.Title>
-                <Card.Text>
-                  {r.id}
+                alt="not found"
+              ></img>
+              <div className="cardContent">
+                <strong>{r.title}</strong>
+                <p>
+                  {r.creator ? r.creator.username : 'unknown'}
                   <br></br>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
+                  {r.description}
+                </p>
                 <Link to={'/recipes/' + r.id}>
                   <button>To recipe</button>
                 </Link>
                 <button onClick={() => handleRemove(r.id)}>remove</button>
-              </Card.Body>
-            </Card>
+              </div>
+            </div>
           ))}
         {!props.me.data.me ? tokenexpired() : null}
       </div>

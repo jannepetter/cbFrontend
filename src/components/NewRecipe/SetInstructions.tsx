@@ -30,12 +30,8 @@ const SetInstructions: React.FC<Props> = props => {
   if (!props.show) {
     return null;
   }
-  const saveInstructions = () => {
-    const instructions = document.getElementById(
-      'jee123'
-    ) as HTMLTextAreaElement;
-    console.log(instructions.value);
-    localStorage.setItem('recipeInstructions', instructions.value);
+  const saveInstructions = (e) => {
+    localStorage.setItem('recipeInstructions', e.target.value)
   };
 
   return (
@@ -46,9 +42,8 @@ const SetInstructions: React.FC<Props> = props => {
           {i.name} {i.amount} {i.unit}
         </li>
       ))}
-      <button onClick={saveInstructions}>save progress</button>
       <br></br>
-      <textarea id="jee123" className="instructionfield"></textarea>
+      <textarea id="jee123" className="instructionfield" onChange={saveInstructions}></textarea>
     </div>
   );
 };

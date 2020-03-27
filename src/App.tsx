@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import RecipeList from './components/RecipeList';
 import Recipe from './components/Recipe';
 import Login from './components/Login';
-import CreateRecipe from './components/CreateRecipe';
 import NewRecipe from './components/NewRecipe/NewRecipe';
 import MyRecipes from './components/MyRecipes';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -10,6 +9,7 @@ import Header from './components/Header';
 import {
   useQuery,
   useMutation,
+  useLazyQuery,
   /* useSubscription, */ useApolloClient
 } from '@apollo/react-hooks';
 import NewAcc from './components/NewAccount';
@@ -19,11 +19,15 @@ import SideDrawer from './components/SideDrawer';
 import Backdrop from './components/Backdrop';
 import { MY_RECIPES } from './graphql/queries/MY_RECIPES';
 import { ALL_RECIPES } from './graphql/queries/ALL_RECIPES';
+import { SEARCHRECIPES } from './graphql/queries/SEARCHRECIPES'
 import { ADD_RECIPE } from './graphql/mutations/ADD_RECIPE';
 import { REMOVE_RECIPE_MUTATION } from './graphql/mutations/REMOVE_RECIPE_MUTATION';
 import { NEW_USER_MUTATION } from './graphql/mutations/NEW_USER_MUTATION';
 import { LOGIN } from './graphql/mutations/LOGIN';
 import { LOGOUT_MUTATION } from './graphql/mutations/LOGOUT_MUTATION';
+import { USERS } from './graphql/queries/USERS'
+
+import Apanel from './components/Apanel';
 
 /*
 ctrl+z undo ja ctrl+shift+z peruu undon
@@ -40,6 +44,7 @@ jwt.io webpage kertoo mitä tokeni sisältää, asia joka ainaki kannattaa pitä
 yritä tehdä funktiot puhtaina eli etteivät käytä muuta tietoa kuin mitä saavat parametreinaan
 (tsekkaa immer -kirjasto ja sen produce funktio jos pitää tehdä syvälle nestattuja cacheupdateja)
 //tsekkaa content security policy csp, ilmeisesti estää osan xss hyökkäyksistä
+alt+up/down voit liikutella koodiriviä, jos maalaat blokin koodia voit liikutella koko blokkia
 
 
 uudet snippetsit:
@@ -53,8 +58,24 @@ cbb
 //monad (fp design pattern)
 //bind (fp juttuja)
 //monoid (fp juttuja)
-
 //tsek webhint.io
+
+//createrespa redisupdate puuttuu
+//kaikkien respojen poisto käyttäjältä kerralla, bännäykset,userin poisto jne.
+//reportin teko resipelle, apanelille joku magic hakusana esim reports
+//jolla hakee vaikka 20 tyyppiä jolle eniten kertyny reportteja
+//vaikka recipe reported boolean ja userille reporttien lukumäärä
+//testejä
+//redis vois laittaa kuntoon
+//-allrespat hakee suosituimmat vaikka 200 respaa 12-24h
+//-userresp eli käyttäjien respat ja myrespat yhistetty maybe 2h
+//-yksittäinen respa ehkä vois olla kans 24h?
+//-searchit lyhkänen vaikka 15min
+//form validointi, ei liian pitkiä inputtejä mihinkää
+//virheilmoitus jos username tai email jo käytössä uutta accoa tehdessä
+//uus acco redirect loginii ku onnistu
+//ratelimit create userille ja recipelle 
+//siistiä ulkoasua
 
 interface recipe {
   id: string;
@@ -68,7 +89,11 @@ const App: React.FC = () => {
   const client = useApolloClient();
   const [time, setTime] = useState<number | null>(null);
   const [sideDrawerOpen, setsideDrawerOpen] = useState(false);
-
+  const [search, setSearch] = useState(false)
+  /*  const searchedRecipes = useQuery(SEARCHRECIPES, {
+     variables: { name: search }
+   }) */
+  const [getSearchedRecipes, searchedRecipes] = useLazyQuery(SEARCHRECIPES)
   const recipes = useQuery(ALL_RECIPES);
   const me = useQuery(ME);
   const myRecipes = useQuery(MY_RECIPES);
@@ -138,6 +163,10 @@ const App: React.FC = () => {
           query: MY_RECIPES,
           data: { myRecipes: [] }
         });
+        store.writeQuery({
+          query: USERS,
+          data: { users: [] }
+        });
       } catch (error) {
         console.log(error, 'logout');
       }
@@ -189,6 +218,8 @@ const App: React.FC = () => {
           logout={logout}
           time={time}
           me={me}
+          getSearchedRecipes={getSearchedRecipes}
+          setSearch={setSearch}
         ></MenuBar>
         <Header></Header>
         <Switch>
@@ -202,7 +233,17 @@ const App: React.FC = () => {
             <NewAcc createUser={createUser}></NewAcc>
           </Route>
           <Route exact path="/">
-            <RecipeList recipes={recipes}></RecipeList>
+            <RecipeList
+              recipes={recipes}
+              searchedRecipes={searchedRecipes}
+              search={search}
+            ></RecipeList>
+          </Route>
+          <Route exact path="/myRecipes/admin">
+            <Apanel
+              me={me}
+              removeRecipe={removeRecipe}
+            ></Apanel>
           </Route>
           <Route exact path="/myRecipes">
             <MyRecipes
@@ -211,9 +252,9 @@ const App: React.FC = () => {
               me={me}
             ></MyRecipes>
           </Route>
-          <Route exact path="/createRecipe">
+          {/*  <Route exact path="/createRecipe">
             <CreateRecipe me={me} createRecipe={createRecipe}></CreateRecipe>
-          </Route>
+          </Route> */}
           <Route
             exact
             path="/recipes/:id"

@@ -1,0 +1,21 @@
+
+.instructionfield {
+    resize: none;
+    width: 100%;
+    max-width: 700px;
+    margin: 5px;
+    padding: 20px;
+    border: solid;
+    border-width: 1px;
+    height: 800px;
+  }
+  .recipedescription{
+    resize: none;
+    width: 100%;
+    max-width: 400px;
+    margin: 5px;
+    padding: 20px;
+    border: solid;
+    border-width: 1px;
+    height: 100px;
+  }

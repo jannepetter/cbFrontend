@@ -8,6 +8,8 @@ interface Props {
   time;
   logout;
   me;
+  getSearchedRecipes
+  setSearch
 }
 
 const MenuBar: React.FC<Props> = props => {
@@ -45,36 +47,37 @@ const MenuBar: React.FC<Props> = props => {
     /* await client.resetStore() */ await props.logout(); //logoutmutaatiolle on jo määritelty refechinä me ja myrecipes
     //ja sillai se on järkevintä pitää
   };
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const sbar = document.getElementById('menubarSearch') as HTMLInputElement
+    props.getSearchedRecipes({ variables: { name: sbar.value } })
+    props.setSearch(true)
+  }
   return (
     <header className="menubar">
       <nav className="menubar_navigation">
         <HamburgerButton onClick={props.toggleSideDrawer}></HamburgerButton>
-        <Link className="menubar_logo" to="/">
-          CB{' '}
+        <Link onClick={() => props.setSearch(false)} className="menubar_logo" to="/">
+          CB
         </Link>
         <div className="spacer"></div>
         <div className="menubar_navigation_items">
           <ul>
             <li>
-              <input className="searchinput"></input>
-              <button>s</button>
+              <input id='menubarSearch' className="searchinput"></input>
+              <button onClick={handleSearch}>s</button>
             </li>
             <li className="menuSecondaryLinkItem" style={loggedin}>
               <Link
                 className="menuLinkItem"
                 to="/myRecipes" /* onClick={()=>props.me.refetch() } */
               >
-                myRecipes{' '}
+                myRecipes
               </Link>
             </li>
             <li className="menuSecondaryLinkItem" style={loggedin}>
               <Link className="menuLinkItem" to="/NewRecipe">
-                NewRecipe{' '}
-              </Link>
-            </li>
-            <li className="menuSecondaryLinkItem" style={loggedin}>
-              <Link className="menuLinkItem" to="/createRecipe">
-                createRecipe{' '}
+                NewRecipe
               </Link>
             </li>
             <li style={loggedout}>
@@ -85,7 +88,7 @@ const MenuBar: React.FC<Props> = props => {
             <li style={loggedin}>
               <Link className="menuLinkItem" to="/myRecipes">
                 {props.me.data.me ? props.me.data.me.username : ''}
-              </Link>{' '}
+              </Link>
               <button onClick={handleLogout}>logout</button>
             </li>
             <span className="timer" style={loggedin} id="span"></span>

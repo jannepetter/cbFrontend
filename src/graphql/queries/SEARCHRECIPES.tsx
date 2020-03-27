@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-export const MY_RECIPES = gql`	
-{
-  myRecipes {
+export const SEARCHRECIPES = gql`	
+query searchRecipes($name:String!){
+  searchRecipes(name:$name) {
     title
     description
     ingredients

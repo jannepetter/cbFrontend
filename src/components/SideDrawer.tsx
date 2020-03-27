@@ -24,7 +24,7 @@ const SideDrawer: React.FC<Props> = props => {
           <Link to="/myRecipes">myRecipes </Link>
         </li>
         <li style={loggedin}>
-          <Link to="/createRecipe">createRecipe </Link>
+          <Link to="/NewRecipe">NewRecipe </Link>
         </li>
         <li>
           <a href="/">something</a>
