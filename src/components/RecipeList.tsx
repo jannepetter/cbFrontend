@@ -22,7 +22,7 @@ const RecipeList: React.FC<Props> = (props) => {
     const showRecipes2 = props.searchedRecipes.data ? props.searchedRecipes.data.searchRecipes : []
 
     const allRecipes = props.search ? showRecipes2 : showRecipes1
-
+    console.log(allRecipes)
     return (
         <div className='recipelist'>
             {allRecipes && allRecipes.map(r =>

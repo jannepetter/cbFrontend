@@ -30,52 +30,8 @@ import { USERS } from './graphql/queries/USERS'
 import Apanel from './components/Apanel';
 
 /*
-ctrl+z undo ja ctrl+shift+z peruu undon
-ctrl+nuoli eteen tai taakse hyppii sanan kerralla, ctrl+backspace poistaa sanan kerralla
-ctrl+shift+nuoli pohjassa maalaa samalla ja voit esimerkiksi poistaa nopeasti jotain
-jos editoit koodia keskeltä jotain riviä, niin pääset seuraavalle riville ctrl+enter (tekee uuden)
-ctrl+p aukasee hakuvalikon objektin kohalla josta pääsee suoraan tiedostoon jossa se on
-ctrl+k+c kommentoi blokin koodia, ctrl+k+u uncommentoi
-f2 antaa nimetä kaikki muuttujat kerralla
-shift+alt+a kommentoi ulos blokin koodia
-ctrl+lclick(mouse) kohdistaa kohteen syntypaikalle, funktioon, komponenttiin ym
-voit sisentää blokin koodia maalamalla sen +tab ja takasinpäin shift+tab
-jwt.io webpage kertoo mitä tokeni sisältää, asia joka ainaki kannattaa pitää mielessä
-yritä tehdä funktiot puhtaina eli etteivät käytä muuta tietoa kuin mitä saavat parametreinaan
-(tsekkaa immer -kirjasto ja sen produce funktio jos pitää tehdä syvälle nestattuja cacheupdateja)
-//tsekkaa content security policy csp, ilmeisesti estää osan xss hyökkäyksistä
-alt+up/down voit liikutella koodiriviä, jos maalaat blokin koodia voit liikutella koko blokkia
-
-
-uudet snippetsit:
-ff
-cb
-cbb
+-redis hyytyny backistä, laita kuntoon ku ehit
 */
-
-//textfield newrecipen instruktionii
-//designpatterns (funktional)
-//monad (fp design pattern)
-//bind (fp juttuja)
-//monoid (fp juttuja)
-//tsek webhint.io
-
-//createrespa redisupdate puuttuu
-//kaikkien respojen poisto käyttäjältä kerralla, bännäykset,userin poisto jne.
-//reportin teko resipelle, apanelille joku magic hakusana esim reports
-//jolla hakee vaikka 20 tyyppiä jolle eniten kertyny reportteja
-//vaikka recipe reported boolean ja userille reporttien lukumäärä
-//testejä
-//redis vois laittaa kuntoon
-//-allrespat hakee suosituimmat vaikka 200 respaa 12-24h
-//-userresp eli käyttäjien respat ja myrespat yhistetty maybe 2h
-//-yksittäinen respa ehkä vois olla kans 24h?
-//-searchit lyhkänen vaikka 15min
-//form validointi, ei liian pitkiä inputtejä mihinkää
-//virheilmoitus jos username tai email jo käytössä uutta accoa tehdessä
-//uus acco redirect loginii ku onnistu
-//ratelimit create userille ja recipelle 
-//siistiä ulkoasua
 
 interface recipe {
   id: string;
